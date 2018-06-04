@@ -10,6 +10,11 @@ public class Fireball implements Runnable {
     //Global variables
     int x, y, xDirection, yDirection;
 
+    boolean reroll = true;
+
+    //Game status
+    boolean gameOver = false;
+
     //Score
     int score;
 
@@ -18,41 +23,50 @@ public class Fireball implements Runnable {
     Rectangle fireball;
 
     public Fireball(int x, int y) {
+
         score = 0;
         this.x = x;
         this.y = y;
         Random r = new Random();
-        int rDir = r.nextInt(4);
-        System.out.println(r.nextInt(4));
+        int rDir = r.nextInt(5);
+        System.out.println(r.nextInt(5));
         setXDirection(rDir);
-        int yrDir = r.nextInt(4);
+        int yrDir = r.nextInt(5);
         setYDirection(yrDir);
 
         fireball = new Rectangle(this.x, this.y, 8, 8);
     }
 
-    public void setXDirection(int xdir) {
-        xDirection = xdir;
+    public void gen() {
+        Random r = new Random();
+        int rDir = r.nextInt(5);
+        System.out.println(r.nextInt(5));
+        setXDirection(rDir);
+        int yrDir = r.nextInt(5);
+        setYDirection(yrDir);
     }
-    public void setYDirection(int ydir) {
-        yDirection = ydir;
-    }
+
+    public void setXDirection(int xdir) { xDirection = xdir; }
+    public void setYDirection(int ydir) { yDirection = ydir; }
 
     public void draw(Graphics g) {
         g.setColor(Color.RED);
         g.fillRect(fireball.x, fireball.y, fireball.width, fireball.height);
     }
-    /*
     public void collision(){
-        if(fireball.intersects(p.player)) {
-
+        if(fireball.intersects (p.player)) {
+            gameOver = true;
         }
     }
-    */
 
     public void move() {
-        fireball.x += xDirection - 2;
-        fireball.y += yDirection - 2;
+        if(gameOver == false) {
+            if(xDirection == 2) { fireball.x += xDirection - 1; }
+            else { fireball.x += xDirection - 2; }
+
+            if(yDirection == 2) { fireball.y += yDirection - 1; }
+            else { fireball.y += yDirection - 2; }
+        }
     }
 
     @Override

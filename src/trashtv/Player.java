@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 public class Player implements Runnable {
 
     int x, y, xDirection, yDirection, id;
+
     Rectangle player;
 
     public Player(int x, int y, int id) {
@@ -16,6 +17,7 @@ public class Player implements Runnable {
         this.id = id;
         player = new Rectangle(x, y, 16,16);
     }
+
     /* Start player movement on key press */
     public void keyPressed(KeyEvent e){
         switch(id) {
@@ -50,17 +52,13 @@ public class Player implements Runnable {
         }
     }
 
-    public void setYDirection(int ydir) {
-        yDirection = ydir;
-    }
-    public void setXDirection(int xdir) {
-        xDirection = xdir;
-    }
+    public void setYDirection(int ydir) { yDirection = ydir; }
+    public void setXDirection(int xdir) { xDirection = xdir; }
 
     public void move() {
         player.x += xDirection;
         player.y += yDirection;
-        // Set play area to window size
+        // Set play area
         if(player.x <= 4) player.x = 4;
         if(player.x >= 340) player.x = 340;
         if(player.y <= 28) player.y = 28;
